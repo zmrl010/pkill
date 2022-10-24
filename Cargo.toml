@@ -3,6 +3,7 @@ name = "pkill"
 description = "simple tool to kill processes"
 version = "0.1.0"
 edition = "2021"
+license = "MIT"
 
 [dependencies]
 sysinfo = "0.26"
