@@ -1,8 +1,9 @@
 [package]
 name = "pkill"
-description = "simple tool to kill processes"
+description = "Simple tool to kill processes"
 version = "0.1.0"
 edition = "2021"
+authors = ["zmrl"]
 license = "MIT"
 
 [dependencies]

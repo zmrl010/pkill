@@ -1,7 +1,7 @@
 pub use clap::Parser;
 
-/// Simple CLI tool to kill processes
 #[derive(Parser, Debug)]
+#[command(author, version, about, long_about = None)]
 pub struct Args {
     #[arg(short, long)]
     /// process ID of task to kill
