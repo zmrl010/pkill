@@ -1,5 +1,7 @@
 {
   "cSpell.words": [
-    "pkill"
+    "pkill",
+    "sysinfo",
+    "thiserror"
   ]
 }
