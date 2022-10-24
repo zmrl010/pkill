@@ -1,5 +1,6 @@
 pub use clap::Parser;
 
+/// Simple CLI tool to kill processes
 #[derive(Parser, Debug)]
 pub struct Args {
     #[arg(short, long)]
