@@ -15,8 +15,7 @@ pub enum PKillError {
 
 pub type Result<T, E = PKillError> = std::result::Result<T, E>;
 
-fn kill_process_by_id(sys: System, pid: usize) -> Result<()> {
-    let pid = Pid::from(pid);
+fn kill_process_by_id(sys: System, pid: Pid) -> Result<()> {
     if let Some(process) = sys.process(pid) {
         process.kill();
         return Ok(());
@@ -25,12 +24,11 @@ fn kill_process_by_id(sys: System, pid: usize) -> Result<()> {
     Err(PKillError::PidNotFound(pid))
 }
 
-#[allow(dead_code)]
-fn kill_processes_by_name<S: AsRef<str>>(sys: System, process_name: S) -> Result<()> {
-    let mut processes = sys.processes_by_name(process_name.as_ref()).peekable();
+fn kill_processes_by_name(sys: System, name: &String) -> Result<()> {
+    let mut processes = sys.processes_by_name(name.as_str()).peekable();
     if processes.peek().is_none() {
         return Err(PKillError::ProcessNameNotFound(
-            process_name.as_ref().to_string(),
+            name.clone(),
         ));
     }
 
@@ -47,7 +45,11 @@ pub fn run(args: cli::Args) -> Result<()> {
 
     if let Some(pid) = args.pid {
         return kill_process_by_id(sys, pid);
-    };
+    } 
+
+    if let Some(name) = args.name {
+        return kill_processes_by_name(sys, &name)
+    }
 
     Ok(())
 }
