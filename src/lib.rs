@@ -1,5 +1,7 @@
 pub mod cli;
 
+use cli::CommandLineArgs;
+
 use sysinfo::{Pid, ProcessExt, System, SystemExt};
 use thiserror::Error;
 
@@ -27,9 +29,7 @@ fn kill_process_by_id(sys: System, pid: Pid) -> Result<()> {
 fn kill_processes_by_name(sys: System, name: &String) -> Result<()> {
     let mut processes = sys.processes_by_name(name.as_str()).peekable();
     if processes.peek().is_none() {
-        return Err(PKillError::ProcessNameNotFound(
-            name.clone(),
-        ));
+        return Err(PKillError::ProcessNameNotFound(name.clone()));
     }
 
     for process in processes {
@@ -39,17 +39,15 @@ fn kill_processes_by_name(sys: System, name: &String) -> Result<()> {
     Ok(())
 }
 
-pub fn run(args: cli::Args) -> Result<()> {
+pub fn run(args: CommandLineArgs) -> Result<()> {
     let mut sys = System::new_all();
     sys.refresh_all();
 
-    if let Some(pid) = args.pid {
-        return kill_process_by_id(sys, pid);
-    } 
-
-    if let Some(name) = args.name {
-        return kill_processes_by_name(sys, &name)
-    }
+    match (args.pid, args.name) {
+        (Some(pid), None) => kill_process_by_id(sys, pid),
+        (None, Some(name)) => kill_processes_by_name(sys, &name),
+        _ => unreachable!(),
+    }?;
 
     Ok(())
 }
