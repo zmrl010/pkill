@@ -4,11 +4,9 @@ pub mod process;
 pub use anyhow::Result;
 use cli::CommandLineArgs;
 
-use sysinfo::{System, SystemExt};
-
+/// Launch the application
 pub fn run(args: CommandLineArgs) -> Result<()> {
-    let mut sys = System::new_all();
-    sys.refresh_all();
+    let sys = process::init_system();
 
     match (args.pid, args.name) {
         (Some(pid), None) => process::kill_process_by_id(sys, pid),
