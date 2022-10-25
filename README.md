@@ -3,12 +3,15 @@
 ```text
 Simple tool to kill processes
 
-Usage: pkill[.exe] [OPTIONS]
+Usage: pkill[.exe] <NAME|PID>
+
+Arguments:
+  [NAME]  kill processes containing [name]
+  [PID]   kill process with matching [pid]
 
 Options:
-  -p, --pid <PID>  process ID of task to kill
-  -h, --help       Print help information
-  -V, --version    Print version information
+  -h, --help     Print help information
+  -V, --version  Print version information
 ```
 
 Built with Rust 🧡
