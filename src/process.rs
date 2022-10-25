@@ -1,5 +1,18 @@
-use crate::{error::PKillError, result::Result};
-use sysinfo::{Pid, ProcessExt, System, SystemExt};
+use crate::Result;
+use anyhow::{anyhow, bail};
+use sysinfo::{Pid, Process, ProcessExt, System, SystemExt};
+
+/// Kill a process by calling `process.kill` and returning a result
+/// to signify whether the signal was successfully sent or not
+fn kill(process: &Process) -> Result<()> {
+    if !process.kill() {
+        bail!(
+            "there was an issue sending kill signal to process with pid `{}`",
+            process.pid()
+        );
+    }
+    Ok(())
+}
 
 /// Kill a single process matching [pid]
 ///
@@ -18,11 +31,10 @@ use sysinfo::{Pid, ProcessExt, System, SystemExt};
 /// ```
 pub fn kill_process_by_id(sys: System, pid: Pid) -> Result<()> {
     if let Some(process) = sys.process(pid) {
-        process.kill();
-        return Ok(());
+        kill(process)?
     }
 
-    Err(PKillError::PidNotFound(pid))
+    Err(anyhow!("unable to find process with pid `{}`", pid))
 }
 
 /// Kill all processes containing the given [name]
@@ -40,14 +52,14 @@ pub fn kill_process_by_id(sys: System, pid: Pid) -> Result<()> {
 ///     kill_processes_by_name(sys, String::from("node"))
 /// }
 /// ```
-pub fn kill_processes_by_name(sys: System, name: &String) -> Result<()> {
-    let mut processes = sys.processes_by_name(name.as_str()).peekable();
+pub fn kill_processes_by_name(sys: System, name: &str) -> Result<()> {
+    let mut processes = sys.processes_by_name(name).peekable();
     if processes.peek().is_none() {
-        return Err(PKillError::ProcessNameNotFound(name.clone()));
+        bail!("unable to find processes with a name containing `{}`", name);
     }
 
     for process in processes {
-        process.kill();
+        kill(process)?
     }
 
     Ok(())

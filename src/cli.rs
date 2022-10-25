@@ -11,10 +11,8 @@ use sysinfo::Pid;
 ))]
 pub struct CommandLineArgs {
     /// kill processes containing [name]
-    #[arg(short, long)]
     pub name: Option<String>,
-    /// kill process by [pid]
-    #[arg(short, long)]
+    /// kill process with matching [pid]
     pub pid: Option<Pid>,
 }
 

@@ -9,4 +9,4 @@ license = "MIT"
 [dependencies]
 sysinfo = "0.26"
 clap = { version = "4.0", features = ["derive"] }
-thiserror = "1.0"
+anyhow = "1.0"
