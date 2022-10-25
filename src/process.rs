@@ -29,7 +29,7 @@ fn kill<P: ProcessExt>(process: &P) -> Result<()> {
 ///     kill_processes_by_id(sys, Pid::from(123))
 /// }
 /// ```
-pub fn kill_process_by_id<S: SystemExt>(sys: S, pid: Pid) -> Result<()> {
+pub fn kill_process_by_id<S: SystemExt>(sys: &S, pid: Pid) -> Result<()> {
     if let Some(process) = sys.process(pid) {
         kill(process)?
     }
@@ -49,10 +49,10 @@ pub fn kill_process_by_id<S: SystemExt>(sys: S, pid: Pid) -> Result<()> {
 ///     let mut sys = System::new_all();
 ///     sys.refresh_all();
 ///
-///     kill_processes_by_name(sys, String::from("node"))
+///     kill_processes_by_name(sys, "node")
 /// }
 /// ```
-pub fn kill_processes_by_name<S: SystemExt>(sys: S, name: &str) -> Result<()> {
+pub fn kill_processes_by_name<S: SystemExt>(sys: &S, name: &str) -> Result<()> {
     let mut processes = sys.processes_by_name(name).peekable();
     if processes.peek().is_none() {
         bail!("unable to find processes with name containing `{}`", name);

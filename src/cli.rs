@@ -1,7 +1,11 @@
+#![deny(missing_docs)]
+//! # Command-line Interface for `pkill`
+
 use clap::ArgGroup;
 pub use clap::Parser;
 use sysinfo::Pid;
 
+/// Simple tool to kill processes
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
 #[command(group(
