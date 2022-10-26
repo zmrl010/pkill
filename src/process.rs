@@ -1,21 +1,17 @@
-use sysinfo::{Process, ProcessRefreshKind, RefreshKind, System, SystemExt};
+use sysinfo::{Process, SystemExt};
 
 use crate::cli::ProcessQuery;
-
-/// Initialize [`System`] instance with only process information loaded
-pub fn init_system() -> System {
-    let refresh_kind = RefreshKind::new().with_processes(ProcessRefreshKind::everything());
-    System::new_with_specifics(refresh_kind)
-}
 
 /// Search for processes based on `query`
 ///
 /// # Returns
 ///
-/// A vector containing...
+/// A vector containing a number of processes based on the `query`
 ///
-/// * [`ProcessQuery::Pid`] - A single process if one was found or empty
-/// * [`ProcessQuery::Name`] - All processes with a name containing the query value
+/// * [`ProcessQuery::Pid`] - A single process if one was found
+/// * [`ProcessQuery::Name`] - All processes with a name containing the query string
+///
+/// If no results were found, an empty vector will be returned
 pub fn search<'a, S: SystemExt>(sys: &'a S, query: &'a ProcessQuery) -> Vec<&'a Process> {
     match query {
         ProcessQuery::Pid(pid) => sys
