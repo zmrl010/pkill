@@ -217,6 +217,23 @@ dependencies = [
  "clap",
  "clap_complete",
  "clap_mangen",
+ "pkill-cli",
+ "pkill-lib",
+]
+
+[[package]]
+name = "pkill-cli"
+version = "0.1.0"
+dependencies = [
+ "clap",
+ "pkill-lib",
+]
+
+[[package]]
+name = "pkill-lib"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
  "sysinfo",
 ]
 

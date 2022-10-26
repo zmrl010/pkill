@@ -4,16 +4,13 @@
 use clap::{CommandFactory, ValueEnum};
 use clap_complete::{generate_to, Shell};
 use clap_mangen::Man;
+use pkill_cli as cli;
 use std::{
     env,
     fs::{self, File},
     io::{ErrorKind, Result},
     path::{Path, PathBuf},
 };
-
-mod cli {
-    include!("src/cli.rs");
-}
 
 /// Print cargo instructions to be recognized during build
 ///

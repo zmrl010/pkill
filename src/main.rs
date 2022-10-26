@@ -1,6 +1,7 @@
-use pkill::cli::{CommandLineArgs, Parser};
+use pkill_cli::parse_args;
+use pkill_lib::pkill;
 
-fn main() -> pkill::Result<()> {
-    let args = CommandLineArgs::parse();
-    pkill::run(args)
+fn main() -> anyhow::Result<()> {
+    let args = parse_args();
+    pkill(args.targets)
 }

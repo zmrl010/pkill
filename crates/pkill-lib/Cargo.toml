@@ -1,0 +1,9 @@
+[package]
+name = "pkill-lib"
+version = "0.1.0"
+edition = "2021"
+description = "pkill function + dependency library"
+
+[dependencies]
+anyhow = { workspace = true }
+sysinfo = "0.26"

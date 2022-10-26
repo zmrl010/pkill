@@ -1,0 +1,10 @@
+[package]
+name = "pkill-cli"
+version = "0.1.0"
+edition = "2021"
+description = "Command-line interface for pkill"
+
+[dependencies]
+clap = { workspace = true }
+pkill-lib = { path = "../pkill-lib" }
+

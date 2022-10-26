@@ -9,13 +9,20 @@ readme = "README.md"
 repository = "https://github.com/zmrl010/pkill"
 keywords = ["process", "kill", "terminator", "system", "utility"]
 
-[dependencies]
+[workspace]
+members = ["crates/*"]
+
+[workspace.dependencies]
 anyhow = "1.0"
 clap = { version = "4.0", features = ["derive"] }
-sysinfo = "0.26"
+
+[dependencies]
+pkill-lib = { path = "crates/pkill-lib" }
+pkill-cli = { path = "crates/pkill-cli" }
+anyhow = { workspace = true }
 
 [build-dependencies]
-clap = { version = "4.0", features = ["derive"] }
+clap = { workspace = true }
 clap_mangen = "0.2.3"
 clap_complete = "4.0.3"
-sysinfo = "0.26"
+pkill-cli = { path = "crates/pkill-cli" }
