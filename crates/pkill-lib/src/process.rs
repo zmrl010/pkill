@@ -3,7 +3,7 @@ use std::{num::ParseIntError, str::FromStr};
 use sysinfo::{Pid, Process, SystemExt};
 
 /// Process searching inputs
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub enum ProcessQuery {
     /// Query for process with pid
     Pid(Pid),
@@ -39,5 +39,28 @@ pub fn search<'a, S: SystemExt>(sys: &'a S, query: &'a ProcessQuery) -> Vec<&'a 
             .process(*pid)
             .map_or_else(|| Vec::new(), |process| vec![process]),
         ProcessQuery::Name(name) => sys.processes_by_name(&name).collect::<Vec<&Process>>(),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn process_query_should_parse_string() -> anyhow::Result<()> {
+        let result: ProcessQuery = "argument".parse()?;
+
+        assert_eq!(result, ProcessQuery::Name("argument".to_string()));
+
+        Ok(())
+    }
+
+    #[test]
+    fn process_query_should_parse_pid() -> anyhow::Result<()> {
+        let result: ProcessQuery = "1234".parse()?;
+
+        assert_eq!(result, ProcessQuery::Pid(Pid::from(1234)));
+
+        Ok(())
     }
 }
