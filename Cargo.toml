@@ -5,6 +5,9 @@ version = "0.1.0"
 edition = "2021"
 authors = ["zmrl"]
 license = "MIT"
+readme = "README.md"
+repository = "https://github.com/zmrl010/pkill"
+keywords = ["process", "kill", "terminator", "system", "utility"]
 
 [dependencies]
 anyhow = "1.0"
