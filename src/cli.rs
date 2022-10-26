@@ -1,9 +1,30 @@
-#![deny(missing_docs)]
-//! # Command-line Interface for `pkill`
+// # Command-line Interface for `pkill`
 
+use std::{num::ParseIntError, str::FromStr};
+
+/// required parser for [`clap`]
 pub use clap::Parser;
+use sysinfo::Pid;
 
-use crate::process::ProcessQuery;
+/// Types of process queries
+#[derive(Debug, Clone)]
+pub enum ProcessQuery {
+    Pid(Pid),
+    Name(String),
+}
+
+impl FromStr for ProcessQuery {
+    type Err = ParseIntError;
+
+    fn from_str(s: &str) -> Result<ProcessQuery, Self::Err> {
+        let value = s
+            .parse::<Pid>()
+            .map_or(ProcessQuery::Name(s.to_string()), |pid| {
+                ProcessQuery::Pid(pid)
+            });
+        Ok(value)
+    }
+}
 
 /// Simple tool to kill processes
 #[derive(Parser, Debug)]

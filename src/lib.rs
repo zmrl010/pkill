@@ -2,8 +2,7 @@ pub mod cli;
 pub mod process;
 
 pub use anyhow::Result;
-use cli::CommandLineArgs;
-use process::ProcessQuery;
+use cli::{CommandLineArgs, ProcessQuery};
 use sysinfo::ProcessExt;
 
 /// Iterate `targets` to find and kill any processes that are found
