@@ -19,11 +19,10 @@ impl FromStr for ProcessQuery {
     type Err = ParseIntError;
 
     fn from_str(s: &str) -> Result<ProcessQuery, Self::Err> {
-        let value = s
-            .parse::<Pid>()
-            .map_or(ProcessQuery::Name(s.to_string()), |pid| {
-                ProcessQuery::Pid(pid)
-            });
+        let value = s.parse::<Pid>().map_or_else(
+            |_| ProcessQuery::Name(s.to_string()),
+            |pid| ProcessQuery::Pid(pid),
+        );
         Ok(value)
     }
 }
