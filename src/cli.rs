@@ -9,7 +9,9 @@ use sysinfo::Pid;
 /// Types of process queries
 #[derive(Debug, Clone)]
 pub enum ProcessQuery {
+    /// Query for process with pid
     Pid(Pid),
+    /// Query for processes with name containing
     Name(String),
 }
 

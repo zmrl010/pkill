@@ -7,9 +7,9 @@ authors = ["zmrl"]
 license = "MIT"
 
 [dependencies]
-sysinfo = "0.26"
-clap = { version = "4.0", features = ["derive"] }
 anyhow = "1.0"
+clap = { version = "4.0", features = ["derive"] }
+sysinfo = "0.26"
 
 [build-dependencies]
 clap = { version = "4.0", features = ["derive"] }
