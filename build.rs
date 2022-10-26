@@ -1,7 +1,8 @@
 //! Pkill build scripts
 //!
 //! Based on https://github.com/sondr3/clap-man-example
-use clap::CommandFactory;
+use clap::{CommandFactory, ValueEnum};
+use clap_complete::{generate_to, Shell};
 use clap_mangen::Man;
 use std::{
     env,
@@ -26,6 +27,20 @@ fn print_cargo_instructions() {
     for instr in instructions {
         println!("{}", instr);
     }
+}
+
+/// Build shell completions using [`clap_complete`]
+///
+/// [`clap_complete`]: https://docs.rs/clap_complete
+fn build_shell_completions(outdir: &Path) -> Result<()> {
+    let mut cmd = cli::CommandLineArgs::command();
+    let shells = Shell::value_variants();
+
+    for shell in shells {
+        generate_to(*shell, &mut cmd, "pkill", &outdir)?;
+    }
+
+    Ok(())
 }
 
 /// Build manpages using [`clap_mangen`]
@@ -54,6 +69,7 @@ fn main() -> Result<()> {
 
     fs::create_dir_all(&path)?;
 
+    build_shell_completions(&path)?;
     build_manpages(&path)?;
 
     Ok(())
