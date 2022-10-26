@@ -3,16 +3,29 @@ pub mod process;
 
 pub use anyhow::Result;
 use cli::CommandLineArgs;
+use process::ProcessQuery;
+use sysinfo::ProcessExt;
 
-/// Launch the application
-pub fn run(args: CommandLineArgs) -> Result<()> {
+/// Iterate `targets` to find and kill any processes that are found
+pub fn pkill(targets: Vec<ProcessQuery>) -> Result<()> {
     let sys = process::init_system();
 
-    match (args.pid, args.name) {
-        (Some(pid), None) => process::kill_process_by_id(&sys, pid),
-        (None, Some(name)) => process::kill_processes_by_name(&sys, &name),
-        _ => unreachable!(), // clap validates this
-    }?;
+    let processes = targets
+        .iter()
+        .flat_map(|query| process::search(&sys, &query));
+
+    for process in processes {
+        println!("killing process {}", process.pid());
+        let signal_sent = process.kill();
+        if !signal_sent {
+            eprintln!("kill signal failed to send")
+        }
+    }
 
     Ok(())
+}
+
+/// Launch `pkill`
+pub fn run(args: CommandLineArgs) -> Result<()> {
+    pkill(args.targets)
 }

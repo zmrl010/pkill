@@ -3,11 +3,10 @@
 ```text
 Simple tool to kill processes
 
-Usage: pkill[.exe] <NAME|PID>
+Usage: pkill.exe [pid|name]...
 
 Arguments:
-  [NAME]  kill processes containing [name]
-  [PID]   kill process with matching [pid]
+  [pid|name]...  target processes to kill
 
 Options:
   -h, --help     Print help information

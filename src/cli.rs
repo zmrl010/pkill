@@ -1,23 +1,17 @@
 #![deny(missing_docs)]
 //! # Command-line Interface for `pkill`
 
-use clap::ArgGroup;
 pub use clap::Parser;
-use sysinfo::Pid;
+
+use crate::process::ProcessQuery;
 
 /// Simple tool to kill processes
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
-#[command(group(
-    ArgGroup::new("query")
-        .required(true)
-        .args(["name", "pid"]),
-))]
 pub struct CommandLineArgs {
-    /// kill processes containing [name]
-    pub name: Option<String>,
-    /// kill process with matching [pid]
-    pub pid: Option<Pid>,
+    /// target processes to kill
+    #[arg(name = "pid|name")]
+    pub targets: Vec<ProcessQuery>,
 }
 
 #[test]
