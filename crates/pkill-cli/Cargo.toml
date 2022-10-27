@@ -11,5 +11,5 @@ keywords.workspace = true
 
 [dependencies]
 clap = { workspace = true }
-pkill-lib = { path = "../pkill-lib" }
+pkill-lib = { path = "../pkill-lib", version = "*" }
 
