@@ -1,8 +1,13 @@
 [package]
 name = "pkill-cli"
 version = "0.1.0"
-edition = "2021"
 description = "Command-line interface for pkill"
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+readme.workspace = true
+repository.workspace = true
+keywords.workspace = true
 
 [dependencies]
 clap = { workspace = true }

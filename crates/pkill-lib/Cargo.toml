@@ -1,8 +1,13 @@
 [package]
 name = "pkill-lib"
 version = "0.1.0"
-edition = "2021"
 description = "pkill function + dependency library"
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+readme.workspace = true
+repository.workspace = true
+keywords.workspace = true
 
 [dependencies]
 anyhow = { workspace = true }

@@ -2,6 +2,14 @@
 name = "pkill"
 description = "Simple tool to kill processes"
 version = "1.0.1"
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+readme.workspace = true
+repository.workspace = true
+keywords.workspace = true
+
+[workspace.package]
 edition = "2021"
 authors = ["zmrl"]
 license = "MIT"
