@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## v1.0.1 (2022-10-27)
 
+<csr-id-6438a77ed086ff50be9551d06b7a892e6f969329/>
+<csr-id-1b9a5d8883351205eee1c017ce0932db7f58ddfe/>
+<csr-id-624803fdc5d798c33699aa8ed198266355ce7f43/>
+<csr-id-16179a986942b89ba3885f4b4738ebb93b9ef742/>
+<csr-id-ab4c22db70a31a498a05ed7558b354f60586c119/>
+<csr-id-da5359c8d1619a9970eb80a22b423b7cc5a264d7/>
+<csr-id-b8912cd5389edebc738d0f84c735f05cb74d18fa/>
+<csr-id-7454cedf35ade1cc4df1f67c6d61a3229bc941c4/>
+
 ### Chore
 
  - <csr-id-6438a77ed086ff50be9551d06b7a892e6f969329/> cleanup
