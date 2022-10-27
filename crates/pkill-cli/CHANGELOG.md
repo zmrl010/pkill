@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <csr-id-624803fdc5d798c33699aa8ed198266355ce7f43/>
 <csr-id-0f10d249ec844df200b94fb6c2e2488457b4aeb7/>
+<csr-id-5bf9d376a5e8eb52bd465870d27ded68dc550b4f/>
 
 ### Refactor
 
@@ -26,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <csr-read-only-do-not-edit/>
 
- - 4 commits contributed to the release.
+ - 5 commits contributed to the release.
  - 3 commits were understood as [conventional](https://www.conventionalcommits.org).
  - 0 issues like '(#ID)' where seen in commit messages
 
@@ -37,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 <details><summary>view details</summary>
 
  * **Uncategorized**
+    - Release pkill-lib v0.1.0, pkill-cli v0.1.0, pkill v1.0.1 ([`d9b85c9`](https://github.com/zmrl010/pkill/commit/d9b85c9b11454e35fca799f1f050c9f5a6514af6))
     - reuse workspace fields ([`5bf9d37`](https://github.com/zmrl010/pkill/commit/5bf9d376a5e8eb52bd465870d27ded68dc550b4f))
     - Release pkill-lib v0.1.0, pkill-cli v0.1.0, pkill v1.0.1 ([`1f544be`](https://github.com/zmrl010/pkill/commit/1f544be5d2abeaddcf6591060e557f2b0ce5f5fa))
     - changelog ([`0f10d24`](https://github.com/zmrl010/pkill/commit/0f10d249ec844df200b94fb6c2e2488457b4aeb7))
