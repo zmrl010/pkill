@@ -4,7 +4,7 @@
 use clap::{CommandFactory, ValueEnum};
 use clap_complete::{generate_to, Shell};
 use clap_mangen::Man;
-use pkill_cli as cli;
+use cli;
 use std::{
     env,
     fs::{self, File},
