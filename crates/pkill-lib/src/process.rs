@@ -37,8 +37,8 @@ pub fn search<'a, S: SystemExt>(sys: &'a S, query: &'a ProcessQuery) -> Vec<&'a 
     match query {
         ProcessQuery::Pid(pid) => sys
             .process(*pid)
-            .map_or_else(|| Vec::new(), |process| vec![process]),
-        ProcessQuery::Name(name) => sys.processes_by_name(&name).collect::<Vec<&Process>>(),
+            .map_or(Default::default(), |process| vec![process]),
+        ProcessQuery::Name(name) => sys.processes_by_name(&name).collect(),
     }
 }
 
