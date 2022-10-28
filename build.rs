@@ -57,12 +57,12 @@ fn build_manpages(outdir: &Path) -> Result<()> {
 
 fn main() -> Result<()> {
     print_cargo_instructions();
-    let outdir = env::var_os("OUT_DIR").ok_or_else(|| ErrorKind::NotFound)?;
-    let outdir = PathBuf::from(outdir);
+    let outdir: PathBuf = env::var_os("OUT_DIR")
+        .ok_or_else(|| ErrorKind::NotFound)?
+        .into();
 
     // Create `target/assets/` folder.
-    let out_path = PathBuf::from(outdir);
-    let path = out_path.ancestors().nth(4).unwrap().join("assets");
+    let path = outdir.ancestors().nth(4).unwrap().join("assets");
 
     fs::create_dir_all(&path)?;
 
