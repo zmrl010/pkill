@@ -1,10 +1,18 @@
 [package]
 name = "xtask"
 version = "0.1.0"
-edition = "2021"
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+readme.workspace = true
+repository.workspace = true
+keywords.workspace = true
+publish = false
 
 [dependencies]
+anyhow = "1.0"
+cargo = "0.65.0"
 clap = { version = "4.0", features = ["derive"] }
 clap_mangen = "0.2.3"
 clap_complete = "4.0.3"
-cli = { path = "../crates/pkill-cli", package = "pkill-cli" }
+pkill-cli = { path = "../crates/pkill-cli" }

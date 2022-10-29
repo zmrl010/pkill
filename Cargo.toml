@@ -1,9 +1,8 @@
 [workspace]
 members = ["crates/*", "xtask"]
 
-[package]
-name = "pkill"
-version= "1.0.1"
+[workspace.package]
+version = "1.0.1"
 description = "Simple tool to kill processes"
 edition = "2021"
 authors = ["zmrl"]
@@ -12,13 +11,18 @@ readme = "README.md"
 repository = "https://github.com/zmrl010/pkill"
 keywords = ["process", "kill", "terminator", "system", "utility"]
 
+[package]
+name = "pkill"
+description.workspace = true
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+readme.workspace = true
+repository.workspace = true
+keywords.workspace = true
+
 [dependencies]
 anyhow = "1.0"
 cli = { path = "crates/pkill-cli", package = "pkill-cli" }
 lib = { path = "crates/pkill-lib", package = "pkill-lib" }
-
-[build-dependencies]
-clap = { version = "4.0", features = ["derive"] }
-clap_mangen = "0.2.3"
-clap_complete = "4.0.3"
-cli = { path = "crates/pkill-cli", package = "pkill-cli" }
