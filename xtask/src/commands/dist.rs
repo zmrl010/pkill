@@ -11,6 +11,9 @@ use std::{
     process::Command,
 };
 
+/// Binary executable's name. Should match output binary
+const BIN_FILE_NAME: &str = if cfg!(windows) { "pkill.exe" } else { "pkill" };
+
 fn pkill_command() -> clap::Command {
     pkill_cli::CommandLineArgs::command()
 }
@@ -72,7 +75,11 @@ fn dist_binary() -> anyhow::Result<()> {
 
     let release_dir = dirs::release_dir();
     let dist_dir = dirs::dist_dir();
-    fs::copy(&release_dir.join("pkill.exe"), &dist_dir.join("pkill.exe")).with_context(|| {
+    fs::copy(
+        &release_dir.join(BIN_FILE_NAME),
+        &dist_dir.join(BIN_FILE_NAME),
+    )
+    .with_context(|| {
         format!(
             "failed to copy from `{}` to `{}`",
             release_dir.display(),
