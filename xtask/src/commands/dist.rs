@@ -4,24 +4,46 @@ use clap::{self, CommandFactory, ValueEnum};
 use clap_complete::{generate_to, Shell};
 use clap_mangen::Man;
 use pkill_cli;
-use std::{
-    env,
-    fs::{self, File},
-    path::Path,
-    process::Command,
-};
+use std::{env, fs::File, path::Path, process::Command};
+
+mod fs {
+    //! # Context-Aware [`std::fs`] Extensions
+    //!
+    //! Each function defined will have anyhow context messages
+    //! attached that will be useful if errors bubble up.
+    use anyhow::Context;
+    use std::fs;
+    use std::path::Path;
+
+    pub fn create_dir_all<P: AsRef<Path>>(path: P) -> anyhow::Result<()> {
+        fs::create_dir_all(&path)
+            .with_context(|| format!("failed to create dir `{}`", path.as_ref().display()))?;
+        Ok(())
+    }
+
+    pub fn copy<P: AsRef<Path>, Q: AsRef<Path>>(from: P, to: Q) -> anyhow::Result<()> {
+        fs::copy(&from, &to).with_context(|| {
+            format!(
+                "failed to copy from `{}` to `{}`",
+                from.as_ref().display(),
+                to.as_ref().display()
+            )
+        })?;
+        Ok(())
+    }
+
+    pub fn remove_dir_all<P: AsRef<Path>>(path: P) -> anyhow::Result<()> {
+        let result = fs::remove_dir_all(&path)
+            .with_context(|| format!("failed to remove dir `{}`", path.as_ref().display()))?;
+        Ok(result)
+    }
+}
 
 /// Binary executable's name. Should match output binary
 const BIN_FILE_NAME: &str = if cfg!(windows) { "pkill.exe" } else { "pkill" };
 
 fn pkill_command() -> clap::Command {
     pkill_cli::CommandLineArgs::command()
-}
-
-fn create_dir_all<P: AsRef<Path>>(path: P) -> anyhow::Result<()> {
-    fs::create_dir_all(&path)
-        .with_context(|| format!("failed to create dir `{}`", path.as_ref().display()))?;
-    Ok(())
 }
 
 /// Build shell completions using [`clap_complete`]
@@ -48,6 +70,7 @@ fn dist_shell_completions(outdir: &Path) -> anyhow::Result<()> {
 fn dist_manpages(outdir: &Path) -> anyhow::Result<()> {
     let cmd = pkill_command();
     let out_file = outdir.join("man");
+
     let mut file = File::create(out_file)
         .with_context(|| format!("failed to create file `{}`", outdir.display()))?;
     Man::new(cmd).render(&mut file)?;
@@ -76,16 +99,9 @@ fn dist_binary() -> anyhow::Result<()> {
     let release_dir = dirs::release_dir();
     let dist_dir = dirs::dist_dir();
     fs::copy(
-        &release_dir.join(BIN_FILE_NAME),
-        &dist_dir.join(BIN_FILE_NAME),
-    )
-    .with_context(|| {
-        format!(
-            "failed to copy from `{}` to `{}`",
-            release_dir.display(),
-            dist_dir.display()
-        )
-    })?;
+        release_dir.join(BIN_FILE_NAME),
+        dist_dir.join(BIN_FILE_NAME),
+    )?;
 
     Ok(())
 }
@@ -97,7 +113,7 @@ pub fn exec() -> anyhow::Result<()> {
     let _ = fs::remove_dir_all(&dist_dir);
     // creating the completions dir will create the dist dir
     // create_dir_all(&dist_dir)?;
-    create_dir_all(&completions_dir)?;
+    fs::create_dir_all(&completions_dir)?;
 
     dist_binary()?;
 
