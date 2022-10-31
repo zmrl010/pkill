@@ -1,6 +1,6 @@
 mod cli;
 mod commands;
-mod util;
+mod dirs;
 
 use cli::Command;
 
