@@ -6,7 +6,7 @@ use cli::Command;
 
 fn execute(command: Command) -> anyhow::Result<()> {
     match command {
-        Command::Dist { outdir } => commands::dist::exec(outdir),
+        Command::Dist => commands::dist::exec(),
         Command::Ci => commands::ci::exec(),
     }
 }

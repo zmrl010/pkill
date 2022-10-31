@@ -1,16 +1,10 @@
-use std::path::PathBuf;
-
 use clap::{Parser, Subcommand};
 
 /// pkill library scripts and tasks using xtask pattern
 #[derive(Subcommand, Debug)]
 pub enum Command {
     /// Package pkill to produce a binary, shell completions, and manpages
-    Dist {
-        ///
-        #[arg(short, long)]
-        outdir: PathBuf,
-    },
+    Dist,
     /// Run tests and check that any committed code adheres to quality standards
     Ci,
 }
