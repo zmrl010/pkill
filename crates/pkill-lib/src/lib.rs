@@ -1,7 +1,9 @@
+mod error;
 mod process;
+mod result;
 
-pub use anyhow::Result;
 pub use process::QueryParam;
+pub use result::Result;
 use sysinfo::{ProcessExt, ProcessRefreshKind, RefreshKind, System, SystemExt};
 
 /// Initialize [`System`] instance with only process information loaded
