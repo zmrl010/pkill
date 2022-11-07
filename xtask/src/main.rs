@@ -4,14 +4,10 @@ mod dirs;
 
 use cli::Command;
 
-fn execute(command: Command) -> anyhow::Result<()> {
-    match command {
+fn main() -> anyhow::Result<()> {
+    let args = cli::parse_args();
+    match args.command {
         Command::Dist => commands::dist::exec(),
         Command::Ci => commands::ci::exec(),
     }
-}
-
-fn main() -> anyhow::Result<()> {
-    let args = cli::parse_args();
-    execute(args.command)
 }

@@ -1,7 +1,7 @@
 mod process;
 
 pub use anyhow::Result;
-pub use process::ProcessQuery;
+pub use process::QueryParam;
 use sysinfo::{ProcessExt, ProcessRefreshKind, RefreshKind, System, SystemExt};
 
 /// Initialize [`System`] instance with only process information loaded
@@ -13,7 +13,7 @@ fn init_system() -> System {
 }
 
 /// Iterate `targets` to find and kill any processes that are found
-pub fn pkill(targets: Vec<ProcessQuery>) -> Result<()> {
+pub fn pkill(targets: Vec<QueryParam>) -> Result<()> {
     let sys = init_system();
 
     let processes = targets

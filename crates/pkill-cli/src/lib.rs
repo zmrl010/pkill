@@ -1,5 +1,5 @@
 pub use clap::Parser;
-use pkill_lib::ProcessQuery;
+use pkill_lib::QueryParam;
 
 /// Simple tool to kill processes
 #[derive(Parser, Debug)]
@@ -7,7 +7,7 @@ use pkill_lib::ProcessQuery;
 pub struct CommandLineArgs {
     /// target processes to kill
     #[arg(name = "pid|name")]
-    pub targets: Vec<ProcessQuery>,
+    pub targets: Vec<QueryParam>,
 }
 
 /// Parse command-line args
