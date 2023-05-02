@@ -3,7 +3,7 @@
 ```text
 Simple tool to kill processes
 
-Usage: pkill.exe [pid|name]...
+Usage: pkill(.exe)? [pid|name]...
 
 Arguments:
   [pid|name]...  target processes to kill
